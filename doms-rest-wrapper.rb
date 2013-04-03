@@ -30,7 +30,8 @@ end
 
 get '/objects/:uuid/:datastream' do |uuid, datastream|
   datastream_response = client.call(:get_datastream_contents, message: {pid: uuid, datastream: datastream})
-  datastream_response.body[:get_datastream_contents_response][:string]
+  data = datastream_response.body[:get_datastream_contents_response][:string]
+  Crack::XML.parse(data).to_json
 end
 
 get '/objects/:uuid/publish' do |uuid|
