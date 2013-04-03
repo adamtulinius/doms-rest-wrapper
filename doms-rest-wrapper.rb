@@ -10,6 +10,7 @@ doms_password = "fedoraAdminPass"
 
 client = Savon.client(wsdl: doms_webservice, basic_auth: [doms_username, doms_password])
 
+set :bind, '0.0.0.0'
 set :static, true
 
 public_dir = if ARGV.length > 0
