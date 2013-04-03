@@ -33,6 +33,18 @@ get '/objects/:uuid/:datastream' do |uuid, datastream|
   datastream_response.body[:get_datastream_contents_response][:string]
 end
 
+get '/objects/:uuid/publish' do |uuid|
+  client.call(:mark_published_object, message: {pid: uuid})
+end
+
+get '/objects/:uuid/unpublish' do |uuid|
+  client.call(:mark_in_progress_object, message: {pid: uuid})
+end
+
+get '/objects/:uuid/delete' do |uuid|
+  client.call(:delete_object, message: {pid: uuid})
+end
+
 get '/search' do
   query = params[:q]
   query = "*" if query.length == 0
